@@ -12,16 +12,11 @@ namespace goodreads.Repository
 {
     public class BookContext : DbContext
     {
-        public BookContext(DbContextOptions options): base(options)
-        {
-        }
-
-
         public DbSet<Book> Books { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer("Server=localhost;Database=goodreads_db;Trusted_Connection=True;");
+            optionsBuilder.UseSqlServer("Server=LAPTOP-L55A02UE\\MSSQLSERVER01;Database=goodreads_db;Trusted_Connection=True;");
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)

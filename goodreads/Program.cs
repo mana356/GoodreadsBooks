@@ -5,6 +5,7 @@ using goodreads.Repository.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 
+
 public class Program { 
     private readonly IBookRepository _bookRepository;
 
@@ -17,58 +18,36 @@ public class Program {
     //entry
     static void Main(string[] args)
     {
-        IServiceProvider serviceProvider = RegisterServices();
+        Program.FindAndAddBooks();
 
-        Program program = serviceProvider.GetService<Program>();
-
-        program.FindAndAddBooks();
-
-        DisposeServices(serviceProvider);
     }
 
-    public void FindAndAddBooks()
+    public static void FindAndAddBooks()
     {
         string[] filePaths = Directory.GetFiles(@"E:\Novels & Books\", "*", SearchOption.AllDirectories);
-        foreach (var path in filePaths)
+        using (var context = new BookContext())
         {
-            var fileName = Path.GetFileName(path);
-            if (!_bookRepository.GetAll().Any(b => b.Path.Equals(path)))
+            foreach (var path in filePaths)
             {
-                Book book = new Book()
+                var fileName = Path.GetFileName(path);
+                string ext = Path.GetExtension(path);
+                if (!context.Books.Any(b => b.Path.Equals(path)))
                 {
-                    Name = fileName,
-                    Path = path
-                };
-                _bookRepository.Create(book);
-            }
+                    Book book = new Book()
+                    {
+                        Name = fileName,
+                        Path = path,
+                        Author = "NA",
+                        Isbn = "NA",
+                        Extension = ext,
+                        CreatedOn = DateTime.Now
+                    };
+                    context.Books.Add(book);
+                    context.SaveChanges();
+                }
+            }           
+            
         }
-    }
-
-    //Support
-    static IServiceProvider RegisterServices()
-    {
-        var services = new ServiceCollection();
-
-        //repositories
-        services.AddDbContext<DbContext, BookContext>(options => options.UseSqlServer("Server=localhost;Database=goodreads_db;Trusted_Connection=True;"));
-        services.AddScoped<IBookRepository, BookRepository>();
-        //services
-        services.AddLogging();
-                               
-        services.AddScoped<Program>();
-
-        return services.BuildServiceProvider();
-    }
-
-    static void DisposeServices(IServiceProvider serviceProvider)
-    {
-        if (serviceProvider == null)
-        {
-            return;
-        }
-        if (serviceProvider is IDisposable sp)
-        {
-            sp.Dispose();
-        }
-    }
+           
+    }   
 }
