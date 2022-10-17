@@ -1,11 +1,6 @@
 ﻿using goodreads.Repository.Entities;
 using goodreads.Repository.Interfaces;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace goodreads.Repository.DAL
 {

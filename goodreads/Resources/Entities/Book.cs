@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 namespace goodreads.Repository.Entities
 {
     [Table("Book")]
-    public class Book : BaseEntity
+    public class Book
     {
         [Key]
         public int Id { get; set; }
@@ -20,6 +20,7 @@ namespace goodreads.Repository.Entities
         public string Extension { get; set; }
         public DateTime CreatedOn { get; set; }
         public DateTime AddedOn { get; set; }
+        public bool IsAddedToGoodreads { get; set; } = true;
 
     }
 }

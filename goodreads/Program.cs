@@ -1,53 +1,57 @@
-﻿using goodreads.Repository;
+﻿using goodreads;
+using goodreads.Models;
+using goodreads.Repository;
 using goodreads.Repository.DAL;
 using goodreads.Repository.Entities;
 using goodreads.Repository.Interfaces;
+using goodreads.Services;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-
+using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Logging;
 
 public class Program { 
-    private readonly IBookRepository _bookRepository;
-
-    public Program(IBookRepository bookRepository)
+    public static void Main(string[] args)
     {
-        this._bookRepository = bookRepository;
+        CreateHostBuilder(args).Build().Run();
     }
 
-
-    //entry
-    static void Main(string[] args)
-    {
-        Program.FindAndAddBooks();
-
-    }
-
-    public static void FindAndAddBooks()
-    {
-        string[] filePaths = Directory.GetFiles(@"E:\Novels & Books\", "*", SearchOption.AllDirectories);
-        using (var context = new BookContext())
+    public static IHostBuilder CreateHostBuilder(string[] args) =>
+        Host.CreateDefaultBuilder(args).ConfigureAppConfiguration((context, builder) =>
         {
-            foreach (var path in filePaths)
+            var env = context.HostingEnvironment;
+            builder.SetBasePath(AppContext.BaseDirectory)
+            .AddJsonFile("appsettings.json", optional: false)
+            .AddJsonFile($"appsettings.{env.EnvironmentName}.json", optional: true)
+            // Override config by env, using like Logging:Level or Logging__Level
+            .AddEnvironmentVariables();
+
+        })
+        .ConfigureLogging((context, logging) => {
+            var env = context.HostingEnvironment;
+            var config = context.Configuration.GetSection("Logging");
+            // ...
+            logging.AddConfiguration(config);
+            logging.AddConsole();
+            // ...
+            logging.AddFilter("Microsoft.EntityFrameworkCore.Database.Command", LogLevel.Warning);
+            logging.AddFilter("Microsoft.EntityFrameworkCore.Infrastructure", LogLevel.Warning);
+            logging.AddFilter("Microsoft.Hosting.Lifetime", LogLevel.Warning);
+        })
+        .ConfigureServices((hostContext, services) => {
+
+            IConfiguration configuration = hostContext.Configuration;
+            services.AddDbContext<BookContext>(options =>
             {
-                var fileName = Path.GetFileName(path);
-                string ext = Path.GetExtension(path);
-                if (!context.Books.Any(b => b.Path.Equals(path)))
-                {
-                    Book book = new Book()
-                    {
-                        Name = fileName,
-                        Path = path,
-                        Author = "NA",
-                        Isbn = "NA",
-                        Extension = ext,
-                        CreatedOn = DateTime.Now
-                    };
-                    context.Books.Add(book);
-                    context.SaveChanges();
-                }
-            }           
+                options.UseSqlServer(configuration["ConnectionStrings:DbConnectionString"]);
+            });
+            services.Configure<BookFinderOptions>(hostContext.Configuration.GetSection("BookFinderOptions"));
+            services.AddSingleton<ILocalBookFinderService, LocalBookFinderService>();
+            services.AddSingleton<IGoodreadsService, GoodreadsService>();
             
-        }
-           
-    }   
+            services.AddScoped<IBookRepository, BookRepository>();
+
+            services.AddHostedService<BookWorker>();
+        });
 }
