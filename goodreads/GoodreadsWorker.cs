@@ -25,8 +25,8 @@ namespace goodreads
             try
             {
                 using var scope = _serviceProvider.CreateScope();
-                var bookFinderService = scope.ServiceProvider.GetRequiredService<LocalBookFinderService>();
-                
+                var goodreadsService = scope.ServiceProvider.GetRequiredService<IGoodreadsService>();
+                await goodreadsService.FindAndUpdateBookDetails();
                 Console.WriteLine("********************Goodreads Worker Finished**********************");
 
                 

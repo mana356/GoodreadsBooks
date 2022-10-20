@@ -59,6 +59,7 @@ public class Program {
             services.AddScoped<IBookRepository, BookRepository>();
             services.AddScoped<IInputRepository, InputRepository>();
 
-            services.AddHostedService<BookWorker>();
+            //services.AddHostedService<BookWorker>();
+            services.AddHostedService<GoodreadsWorker>();
         });
 }
