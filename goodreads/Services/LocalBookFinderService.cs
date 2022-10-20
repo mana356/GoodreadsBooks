@@ -4,6 +4,7 @@ using goodreads.Models;
 using Microsoft.Extensions.Options;
 using Microsoft.Extensions.DependencyInjection;
 using goodreads.Repository.Interfaces;
+using goodreads.Resources.Repository.Interfaces;
 
 namespace goodreads.Services
 {
@@ -50,16 +51,19 @@ namespace goodreads.Services
                         Extension = ext,
                         CreatedOn = DateTime.Now
                     };
-                    
+
                     addedBooks.Add(book);
                 }
                 catch (Exception ex)
                 {
                     errorBuilder.AddError(path, ex.Message);
                 }
+                Console.WriteLine();
+
             }
             await bookRepo.CreateRange(addedBooks);
-            Console.WriteLine();
+            //var inputRepo = scope.ServiceProvider.GetRequiredService<IInputRepository>();
+            //var addedRows = inputRepo.AddValuesForCard(1);
             return (errorBuilder, addedBooks);
         }
     }

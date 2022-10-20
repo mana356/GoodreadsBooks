@@ -10,6 +10,5 @@ namespace goodreads.Services
     {
         Task FindAndUpdateBookDetails();
 
-        Task AddBooktoGoodreads();
     }
 }

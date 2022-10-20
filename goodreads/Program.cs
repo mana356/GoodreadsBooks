@@ -4,6 +4,9 @@ using goodreads.Repository;
 using goodreads.Repository.DAL;
 using goodreads.Repository.Entities;
 using goodreads.Repository.Interfaces;
+using goodreads.Resources.Entities;
+using goodreads.Resources.Repository;
+using goodreads.Resources.Repository.Interfaces;
 using goodreads.Services;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -15,7 +18,10 @@ public class Program {
     public static void Main(string[] args)
     {
         CreateHostBuilder(args).Build().Run();
+        
     }
+
+    
 
     public static IHostBuilder CreateHostBuilder(string[] args) =>
         Host.CreateDefaultBuilder(args).ConfigureAppConfiguration((context, builder) =>
@@ -35,8 +41,8 @@ public class Program {
             logging.AddConfiguration(config);
             logging.AddConsole();
             // ...
-            logging.AddFilter("Microsoft.EntityFrameworkCore.Database.Command", LogLevel.Warning);
-            logging.AddFilter("Microsoft.EntityFrameworkCore.Infrastructure", LogLevel.Warning);
+            //logging.AddFilter("Microsoft.EntityFrameworkCore.Database.Command", LogLevel.Warning);
+            //logging.AddFilter("Microsoft.EntityFrameworkCore.Infrastructure", LogLevel.Warning);
             logging.AddFilter("Microsoft.Hosting.Lifetime", LogLevel.Warning);
         })
         .ConfigureServices((hostContext, services) => {
@@ -49,8 +55,9 @@ public class Program {
             services.Configure<BookFinderOptions>(hostContext.Configuration.GetSection("BookFinderOptions"));
             services.AddSingleton<ILocalBookFinderService, LocalBookFinderService>();
             services.AddSingleton<IGoodreadsService, GoodreadsService>();
-            
+
             services.AddScoped<IBookRepository, BookRepository>();
+            services.AddScoped<IInputRepository, InputRepository>();
 
             services.AddHostedService<BookWorker>();
         });
