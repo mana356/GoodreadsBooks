@@ -5,15 +5,15 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using goodreads.Repository;
+using Test.Repository;
 
 #nullable disable
 
-namespace goodreads.Migrations
+namespace Test.Migrations
 {
     [DbContext(typeof(BookContext))]
-    [Migration("20221020181157_input-tables")]
-    partial class inputtables
+    [Migration("20221021131224_initial-migration")]
+    partial class initialmigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -24,7 +24,7 @@ namespace goodreads.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
 
-            modelBuilder.Entity("goodreads.Repository.Entities.Book", b =>
+            modelBuilder.Entity("Test.Repository.Entities.Book", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -46,7 +46,7 @@ namespace goodreads.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<bool>("IsAddedToGoodreads")
+                    b.Property<bool>("IsAddedToTest")
                         .HasColumnType("bit");
 
                     b.Property<string>("Isbn")
@@ -66,7 +66,7 @@ namespace goodreads.Migrations
                     b.ToTable("Book");
                 });
 
-            modelBuilder.Entity("goodreads.Resources.Entities.InputType", b =>
+            modelBuilder.Entity("Test.Resources.Entities.InputType", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -91,13 +91,16 @@ namespace goodreads.Migrations
                     b.ToTable("InputType");
                 });
 
-            modelBuilder.Entity("goodreads.Resources.Entities.InputValue", b =>
+            modelBuilder.Entity("Test.Resources.Entities.InputValue", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<int>("CardId")
+                        .HasColumnType("int");
 
                     b.Property<int>("InputTypeId")
                         .HasColumnType("int");
@@ -113,9 +116,9 @@ namespace goodreads.Migrations
                     b.ToTable("InputValue");
                 });
 
-            modelBuilder.Entity("goodreads.Resources.Entities.InputValue", b =>
+            modelBuilder.Entity("Test.Resources.Entities.InputValue", b =>
                 {
-                    b.HasOne("goodreads.Resources.Entities.InputType", "InputType")
+                    b.HasOne("Test.Resources.Entities.InputType", "InputType")
                         .WithMany("InputValues")
                         .HasForeignKey("InputTypeId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -124,7 +127,7 @@ namespace goodreads.Migrations
                     b.Navigation("InputType");
                 });
 
-            modelBuilder.Entity("goodreads.Resources.Entities.InputType", b =>
+            modelBuilder.Entity("Test.Resources.Entities.InputType", b =>
                 {
                     b.Navigation("InputValues");
                 });

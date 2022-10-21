@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace goodreads.Models
+namespace Test.Models
 {
     public class OpenLibraryResult
     {

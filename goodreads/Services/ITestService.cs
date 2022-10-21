@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace goodreads.Services
+namespace Test.Services
 {
-    public interface IGoodreadsService
+    public interface ITestService
     {
         Task FindAndUpdateBookDetails();
 

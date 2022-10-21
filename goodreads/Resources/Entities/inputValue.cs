@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace goodreads.Resources.Entities
+namespace Test.Resources.Entities
 {
     [Table("InputValue")]
     public class InputValue

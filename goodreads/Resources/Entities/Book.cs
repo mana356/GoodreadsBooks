@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace goodreads.Repository.Entities
+namespace Test.Repository.Entities
 {
     [Table("Book")]
     public class Book
@@ -20,7 +20,7 @@ namespace goodreads.Repository.Entities
         public string Extension { get; set; }
         public DateTime CreatedOn { get; set; }
         public DateTime AddedOn { get; set; }
-        public bool IsAddedToGoodreads { get; set; } = true;
+        public bool IsAddedToTest { get; set; } = true;
 
     }
 }

@@ -1,5 +1,5 @@
-﻿using goodreads.Repository.Entities;
-using goodreads.Repository;
+﻿using Test.Repository.Entities;
+using Test.Repository;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,22 +8,22 @@ using System.Threading.Tasks;
 using System.Net.Http;
 using System.Text.Json;
 using System.Net.Http.Headers;
-using goodreads.Repository.Interfaces;
+using Test.Repository.Interfaces;
 using static System.Formats.Asn1.AsnWriter;
 using Microsoft.Extensions.DependencyInjection;
-using goodreads.Models;
+using Test.Models;
 using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
 
-namespace goodreads.Services
+namespace Test.Services
 {
-    public class GoodreadsService : IGoodreadsService
+    public class TestService : ITestService
     {
         private readonly BookFinderOptions _options;
         private readonly IServiceProvider _serviceProvider;
         private HttpClient client;
 
-        public GoodreadsService(IOptions<BookFinderOptions> options, IServiceProvider serviceProvider)
+        public TestService(IOptions<BookFinderOptions> options, IServiceProvider serviceProvider)
         {
             _options = options.Value;
             _serviceProvider = serviceProvider;

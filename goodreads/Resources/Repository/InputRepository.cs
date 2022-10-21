@@ -1,9 +1,9 @@
-﻿using goodreads.Repository;
-using goodreads.Repository.DAL;
-using goodreads.Repository.Entities;
-using goodreads.Repository.Interfaces;
-using goodreads.Resources.Entities;
-using goodreads.Resources.Repository.Interfaces;
+﻿using Test.Repository;
+using Test.Repository.DAL;
+using Test.Repository.Entities;
+using Test.Repository.Interfaces;
+using Test.Resources.Entities;
+using Test.Resources.Repository.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.FileSystemGlobbing.Internal;
 using System;
@@ -16,7 +16,7 @@ using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using static System.Net.Mime.MediaTypeNames;
 
-namespace goodreads.Resources.Repository
+namespace Test.Resources.Repository
 {
     public class InputRepository : GenericRepository<InputValue>, IInputRepository
     {

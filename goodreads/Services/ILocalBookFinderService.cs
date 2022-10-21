@@ -1,12 +1,12 @@
-﻿using goodreads.Models;
-using goodreads.Repository.Entities;
+﻿using Test.Models;
+using Test.Repository.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace goodreads.Services
+namespace Test.Services
 {
     public interface ILocalBookFinderService
     {

@@ -5,9 +5,9 @@ using System.Linq.Expressions;
 using System.Security.Principal;
 using System.Text;
 using System.Threading.Tasks;
-using goodreads.Repository.Entities;
+using Test.Repository.Entities;
 
-namespace goodreads.Repository.Interfaces
+namespace Test.Repository.Interfaces
 {
     public interface IGenericRepository<T> where T: class
     {

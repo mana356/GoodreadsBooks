@@ -1,12 +1,12 @@
-﻿using goodreads.Repository.Entities;
-using goodreads.Repository;
-using goodreads.Models;
+﻿using Test.Repository.Entities;
+using Test.Repository;
+using Test.Models;
 using Microsoft.Extensions.Options;
 using Microsoft.Extensions.DependencyInjection;
-using goodreads.Repository.Interfaces;
-using goodreads.Resources.Repository.Interfaces;
+using Test.Repository.Interfaces;
+using Test.Resources.Repository.Interfaces;
 
-namespace goodreads.Services
+namespace Test.Services
 {
     public class LocalBookFinderService: ILocalBookFinderService
     {

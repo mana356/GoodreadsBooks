@@ -1,13 +1,13 @@
-﻿using goodreads;
-using goodreads.Models;
-using goodreads.Repository;
-using goodreads.Repository.DAL;
-using goodreads.Repository.Entities;
-using goodreads.Repository.Interfaces;
-using goodreads.Resources.Entities;
-using goodreads.Resources.Repository;
-using goodreads.Resources.Repository.Interfaces;
-using goodreads.Services;
+﻿using Test;
+using Test.Models;
+using Test.Repository;
+using Test.Repository.DAL;
+using Test.Repository.Entities;
+using Test.Repository.Interfaces;
+using Test.Resources.Entities;
+using Test.Resources.Repository;
+using Test.Resources.Repository.Interfaces;
+using Test.Services;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -54,12 +54,12 @@ public class Program {
             });
             services.Configure<BookFinderOptions>(hostContext.Configuration.GetSection("BookFinderOptions"));
             services.AddSingleton<ILocalBookFinderService, LocalBookFinderService>();
-            services.AddSingleton<IGoodreadsService, GoodreadsService>();
+            services.AddSingleton<ITestService, TestService>();
 
             services.AddScoped<IBookRepository, BookRepository>();
             services.AddScoped<IInputRepository, InputRepository>();
 
             //services.AddHostedService<BookWorker>();
-            services.AddHostedService<GoodreadsWorker>();
+            services.AddHostedService<TestWorker>();
         });
 }

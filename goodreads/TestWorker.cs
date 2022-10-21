@@ -1,4 +1,4 @@
-﻿using goodreads.Services;
+﻿using Test.Services;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using System;
@@ -7,27 +7,27 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace goodreads
+namespace Test
 {
-    public class GoodreadsWorker : BackgroundService
+    public class TestWorker : BackgroundService
     {
         IHostApplicationLifetime _lifetime;
         IServiceProvider _serviceProvider;
 
-        public GoodreadsWorker(IHostApplicationLifetime hostApplicationLifetime, IServiceProvider serviceProvider)
+        public TestWorker(IHostApplicationLifetime hostApplicationLifetime, IServiceProvider serviceProvider)
         {
             _lifetime = hostApplicationLifetime;
             _serviceProvider = serviceProvider;
         }
         protected override async Task ExecuteAsync(CancellationToken stoppingToken)
         {
-            Console.WriteLine("********************Goodreads Worker Started**********************");
+            Console.WriteLine("********************Test Worker Started**********************");
             try
             {
                 using var scope = _serviceProvider.CreateScope();
-                var goodreadsService = scope.ServiceProvider.GetRequiredService<IGoodreadsService>();
-                await goodreadsService.FindAndUpdateBookDetails();
-                Console.WriteLine("********************Goodreads Worker Finished**********************");
+                var TestService = scope.ServiceProvider.GetRequiredService<ITestService>();
+                await TestService.FindAndUpdateBookDetails();
+                Console.WriteLine("********************Test Worker Finished**********************");
 
                 
 
