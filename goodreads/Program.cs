@@ -58,6 +58,7 @@ public class Program {
             }
             if (Boolean.Parse(configuration["Workers:TestWorker"]))
             {
+                services.AddScoped<IBookRepository, BookRepository>();
                 services.AddSingleton<ITestService, TestService>();
                 services.AddHostedService<TestWorker>();
             }

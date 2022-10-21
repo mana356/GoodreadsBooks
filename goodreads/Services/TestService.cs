@@ -22,7 +22,7 @@ namespace Test.Services
     {
         private readonly BookFinderOptions _options;
         private readonly IServiceProvider _serviceProvider;
-        private HttpClient client;
+        private readonly HttpClient client;
 
         public TestService(IOptions<BookFinderOptions> options, IServiceProvider serviceProvider)
         {
@@ -48,14 +48,19 @@ namespace Test.Services
                     //parse response body
                     var result = response.Content.ReadAsStringAsync().Result;
                     var searchResult = JsonConvert.DeserializeObject <OpenLibraryResult> (result);
-
-                    book.Isbn = searchResult.docs[0].isbn[0];
-                    await bookRepo.Update(book.Id, book);
-                    updateCount++;
+                    if (searchResult != null)
+                    {
+                        book.Isbn = searchResult.docs[0].isbn[0];
+                        await bookRepo.Update(book.Id, book);
+                        updateCount++;
+                    }
                 }
                 else
                 {
-                    Console.WriteLine($"Error for book: {book.Path}");
+                    Console.WriteLine($"\nError in fetching book info from openlibrary: {book.Path}; " +
+                        $"\n{response.StatusCode} " +
+                        $"\n{response.ReasonPhrase} " +
+                        $"\n{response.Content.ReadAsStringAsync().Result}");
                 }
             }
             return updateCount;
