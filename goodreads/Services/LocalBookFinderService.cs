@@ -57,8 +57,7 @@ namespace Test.Services
                 catch (Exception ex)
                 {
                     errorBuilder.AddError(path, ex.Message);
-                }
-                Console.WriteLine();
+                };
 
             }
             await bookRepo.CreateRange(addedBooks);

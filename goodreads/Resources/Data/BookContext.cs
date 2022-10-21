@@ -18,8 +18,8 @@ namespace Test.Repository
 
         public DbSet<Book> Books { get; set; }
         public DbSet<InputType> InputTypes {get; set;}
-
         public DbSet<InputValue> InputValues {get; set;}
+        public DbSet<OpenLibraryBook> OpenLibraryBooks { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -38,7 +38,10 @@ namespace Test.Repository
             {
                 entity.HasKey(e => e.Id);
             });
-
+            modelBuilder.Entity<OpenLibraryBook>(entity =>
+            {
+                entity.HasKey(e => e.Id);
+            });
 
         }
     }

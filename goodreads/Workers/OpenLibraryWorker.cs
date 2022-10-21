@@ -4,12 +4,12 @@ using Test.Services.Interfaces;
 
 namespace Test.Workers
 {
-    public class TestWorker : BackgroundService
+    public class OpenLibraryWorker : BackgroundService
     {
         IHostApplicationLifetime _lifetime;
         IServiceProvider _serviceProvider;
 
-        public TestWorker(IHostApplicationLifetime hostApplicationLifetime, IServiceProvider serviceProvider)
+        public OpenLibraryWorker(IHostApplicationLifetime hostApplicationLifetime, IServiceProvider serviceProvider)
         {
             _lifetime = hostApplicationLifetime;
             _serviceProvider = serviceProvider;
@@ -21,10 +21,10 @@ namespace Test.Workers
                 Console.WriteLine("Test Worker Started**************************************************************");
 
                 using var scope = _serviceProvider.CreateScope();
-                var TestService = scope.ServiceProvider.GetRequiredService<ITestService>();
-                var updateCount = await TestService.FindAndUpdateBookDetails();
+                var TestService = scope.ServiceProvider.GetRequiredService<IOpenLibraryService>();
+                var foundCount = await TestService.FindAndInsertOpenLibraryBookDetails();
 
-                Console.WriteLine($"Books Updated Count: {updateCount}");
+                Console.WriteLine($"Books matched Count: {foundCount}");
 
                 Console.WriteLine("Test Worker Finished**************************************************************");
             }

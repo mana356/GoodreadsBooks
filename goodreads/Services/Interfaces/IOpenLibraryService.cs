@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace Test.Services.Interfaces
 {
-    public interface ITestService
+    public interface IOpenLibraryService
     {
-        Task<int> FindAndUpdateBookDetails();
+        Task<int> FindAndInsertOpenLibraryBookDetails();
 
     }
 }

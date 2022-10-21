@@ -59,8 +59,9 @@ public class Program {
             if (Boolean.Parse(configuration["Workers:TestWorker"]))
             {
                 services.AddScoped<IBookRepository, BookRepository>();
-                services.AddSingleton<ITestService, TestService>();
-                services.AddHostedService<TestWorker>();
+                services.AddScoped<IOpenLibraryBookRepository, OpenLibraryBookRepository>();
+                services.AddSingleton<IOpenLibraryService, OpenLibraryService>();
+                services.AddHostedService<OpenLibraryWorker>();
             }
             if (Boolean.Parse(configuration["Workers:CardInputWorker"]))
             {

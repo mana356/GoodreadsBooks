@@ -4,18 +4,18 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Test.Repository.DAL
 {
-    public class BookRepository : GenericRepository<Book>, IBookRepository
+    public class OpenLibraryBookRepository : GenericRepository<OpenLibraryBook>, IOpenLibraryBookRepository
     {
-        public BookRepository(BookContext dbContext)
+        public OpenLibraryBookRepository(BookContext dbContext)
             : base(dbContext)
         {
 
         }
 
-        public async Task<List<Book>> GetBooks()
+        public async Task<List<OpenLibraryBook>> GetOpenLibraryBooks()
         {
             return await GetAll()
-                .OrderBy(c => c.Name)
+                .OrderBy(c => c.Title)
                 .ToListAsync();
         }
     }
