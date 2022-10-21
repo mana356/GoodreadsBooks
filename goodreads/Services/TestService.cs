@@ -14,6 +14,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Test.Models;
 using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
+using Test.Services.Interfaces;
 
 namespace Test.Services
 {
@@ -29,12 +30,12 @@ namespace Test.Services
             _serviceProvider = serviceProvider;
             client = new HttpClient();
         }
-        public async Task FindAndUpdateBookDetails()
+        public async Task<int> FindAndUpdateBookDetails()
         {
             var scope = _serviceProvider.CreateScope();
             var bookRepo = scope.ServiceProvider.GetRequiredService<IBookRepository>();
             var bookList = bookRepo.GetAll().Where(x => x.Isbn.Equals("NA")).ToList();
-
+            var updateCount = 0;
             client.BaseAddress = new Uri("https://openlibrary.org/");
             client.DefaultRequestHeaders.Accept.Clear();
             client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
@@ -50,12 +51,14 @@ namespace Test.Services
 
                     book.Isbn = searchResult.docs[0].isbn[0];
                     await bookRepo.Update(book.Id, book);
+                    updateCount++;
                 }
                 else
                 {
                     Console.WriteLine($"Error for book: {book.Path}");
                 }
-            }            
+            }
+            return updateCount;
         }
 
         

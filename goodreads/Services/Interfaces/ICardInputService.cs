@@ -5,11 +5,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Test.Resources.Entities;
 
-namespace Test.Services
+namespace Test.Services.Interfaces
 {
-    public interface ILocalBookFinderService
+    public interface ICardInputService
     {
-        Task<(ErrorBuilder errorBuilder, List<Book> addedBooks)> FindAndAddBooks();
+        List<InputValue> AddInputsForCard(int cardId);
     }
 }

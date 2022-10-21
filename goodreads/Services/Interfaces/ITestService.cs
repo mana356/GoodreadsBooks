@@ -4,11 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Test.Services
+namespace Test.Services.Interfaces
 {
     public interface ITestService
     {
-        Task FindAndUpdateBookDetails();
+        Task<int> FindAndUpdateBookDetails();
 
     }
 }

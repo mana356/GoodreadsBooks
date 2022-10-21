@@ -1,10 +1,7 @@
-﻿using Test;
-using Test.Models;
+﻿using Test.Models;
 using Test.Repository;
 using Test.Repository.DAL;
-using Test.Repository.Entities;
 using Test.Repository.Interfaces;
-using Test.Resources.Entities;
 using Test.Resources.Repository;
 using Test.Resources.Repository.Interfaces;
 using Test.Services;
@@ -13,6 +10,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using Test.Services.Interfaces;
+using Test.Workers;
 
 public class Program { 
     public static void Main(string[] args)
@@ -21,8 +20,6 @@ public class Program {
         
     }
 
-    
-
     public static IHostBuilder CreateHostBuilder(string[] args) =>
         Host.CreateDefaultBuilder(args).ConfigureAppConfiguration((context, builder) =>
         {
@@ -30,19 +27,18 @@ public class Program {
             builder.SetBasePath(AppContext.BaseDirectory)
             .AddJsonFile("appsettings.json", optional: false)
             .AddJsonFile($"appsettings.{env.EnvironmentName}.json", optional: true)
-            // Override config by env, using like Logging:Level or Logging__Level
             .AddEnvironmentVariables();
 
         })
         .ConfigureLogging((context, logging) => {
             var env = context.HostingEnvironment;
             var config = context.Configuration.GetSection("Logging");
-            // ...
+            
             logging.AddConfiguration(config);
             logging.AddConsole();
-            // ...
-            //logging.AddFilter("Microsoft.EntityFrameworkCore.Database.Command", LogLevel.Warning);
-            //logging.AddFilter("Microsoft.EntityFrameworkCore.Infrastructure", LogLevel.Warning);
+            
+            logging.AddFilter("Microsoft.EntityFrameworkCore.Database.Command", LogLevel.Warning);
+            logging.AddFilter("Microsoft.EntityFrameworkCore.Infrastructure", LogLevel.Warning);
             logging.AddFilter("Microsoft.Hosting.Lifetime", LogLevel.Warning);
         })
         .ConfigureServices((hostContext, services) => {
@@ -52,14 +48,24 @@ public class Program {
             {
                 options.UseSqlServer(configuration["ConnectionStrings:DbConnectionString"]);
             });
-            services.Configure<BookFinderOptions>(hostContext.Configuration.GetSection("BookFinderOptions"));
-            services.AddSingleton<ILocalBookFinderService, LocalBookFinderService>();
-            services.AddSingleton<ITestService, TestService>();
 
-            services.AddScoped<IBookRepository, BookRepository>();
-            services.AddScoped<IInputRepository, InputRepository>();
-
-            //services.AddHostedService<BookWorker>();
-            services.AddHostedService<TestWorker>();
+            if (Boolean.Parse(configuration["Workers:BookWorker"]))
+            {
+                services.Configure<BookFinderOptions>(hostContext.Configuration.GetSection("BookFinderOptions"));
+                services.AddSingleton<ILocalBookFinderService, LocalBookFinderService>();
+                services.AddScoped<IBookRepository, BookRepository>();
+                services.AddHostedService<BookWorker>();
+            }
+            if (Boolean.Parse(configuration["Workers:TestWorker"]))
+            {
+                services.AddSingleton<ITestService, TestService>();
+                services.AddHostedService<TestWorker>();
+            }
+            if (Boolean.Parse(configuration["Workers:CardInputWorker"]))
+            {
+                services.AddScoped<IInputRepository, InputRepository>();
+                services.AddSingleton<ICardInputService, CardInputService>();
+                services.AddHostedService<CardInputWorker>();
+            }
         });
 }

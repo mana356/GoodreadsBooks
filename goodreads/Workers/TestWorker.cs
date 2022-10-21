@@ -1,13 +1,8 @@
-﻿using Test.Services;
-using Microsoft.Extensions.DependencyInjection;
+﻿using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Test.Services.Interfaces;
 
-namespace Test
+namespace Test.Workers
 {
     public class TestWorker : BackgroundService
     {
@@ -21,16 +16,17 @@ namespace Test
         }
         protected override async Task ExecuteAsync(CancellationToken stoppingToken)
         {
-            Console.WriteLine("********************Test Worker Started**********************");
             try
             {
+                Console.WriteLine("Test Worker Started**************************************************************");
+
                 using var scope = _serviceProvider.CreateScope();
                 var TestService = scope.ServiceProvider.GetRequiredService<ITestService>();
-                await TestService.FindAndUpdateBookDetails();
-                Console.WriteLine("********************Test Worker Finished**********************");
+                var updateCount = await TestService.FindAndUpdateBookDetails();
 
-                
+                Console.WriteLine($"Books Updated Count: {updateCount}");
 
+                Console.WriteLine("Test Worker Finished**************************************************************");
             }
             catch (Exception ex)
             {

@@ -4,7 +4,7 @@ using Test.Models;
 using Microsoft.Extensions.Options;
 using Microsoft.Extensions.DependencyInjection;
 using Test.Repository.Interfaces;
-using Test.Resources.Repository.Interfaces;
+using Test.Services.Interfaces;
 
 namespace Test.Services
 {
@@ -62,8 +62,6 @@ namespace Test.Services
 
             }
             await bookRepo.CreateRange(addedBooks);
-            //var inputRepo = scope.ServiceProvider.GetRequiredService<IInputRepository>();
-            //var addedRows = inputRepo.AddValuesForCard(1);
             return (errorBuilder, addedBooks);
         }
     }
