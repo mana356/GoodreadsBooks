@@ -16,6 +16,7 @@ using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
 using Test.Services.Interfaces;
 using System.Security.Policy;
+using Microsoft.EntityFrameworkCore;
 
 namespace Test.Services
 {
@@ -32,10 +33,10 @@ namespace Test.Services
         public async Task<int> FindAndInsertOpenLibraryBookDetails()
         {
             var scope = _serviceProvider.CreateScope();
-            var bookRepo = scope.ServiceProvider.GetRequiredService<IBookRepository>();
             var openLibBookRepo = scope.ServiceProvider.GetRequiredService<IOpenLibraryBookRepository>();
+            var dbContext = scope.ServiceProvider.GetRequiredService<BookContext>();
 
-            var bookList = bookRepo.GetAll().ToList();
+            var bookList = await dbContext.Books.ToListAsync();
             var openLibBookList = openLibBookRepo.GetAll().ToList();
             var foundCount = 0;
             client.BaseAddress = new Uri("https://openlibrary.org/");
@@ -80,8 +81,7 @@ namespace Test.Services
                     {
                         Console.WriteLine($"\nNo results found from openlibrary: {book.Path}; " +
                         $"\n{response.StatusCode} " +
-                        $"\n{response.ReasonPhrase} " +
-                        $"\n{response.Content.ReadAsStringAsync().Result}");
+                        $"\n{response.ReasonPhrase} ");
                     }
                 }
                 else

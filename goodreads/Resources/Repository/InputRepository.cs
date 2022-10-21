@@ -45,10 +45,9 @@ namespace Test.Resources.Repository
                         InputType = inputType,
                         Value = !inputType.Type.Equals("complex") ? random.NextDouble().ToString() : ""
                     };
-                    _dbContext.InputValues.Add(inputValue);
                     values.Add(inputValue);
                 }
-
+                
                 var constantValues = values.Where(x => !x.InputType.Type.Equals("complex")).ToList();
                 var complexValues = values.Where(x => x.InputType.Type.Equals("complex")).ToList();
 
@@ -56,6 +55,7 @@ namespace Test.Resources.Repository
                 {
                     complexRecord.Value = GetCalculatedComplexValue(constantValues, complexRecord.InputType.Formula);
                 }
+                _dbContext.InputValues.AddRange(values);
                 _dbContext.SaveChanges();
             }
             catch (Exception ex)

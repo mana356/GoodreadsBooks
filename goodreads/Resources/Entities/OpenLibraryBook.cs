@@ -24,7 +24,7 @@ namespace Test.Repository.Entities
             }
             set
             {
-                PublishDate = string.Join(";", value);
+                PublishDate = value != null ? string.Join(";", value) : string.Empty;
             }
         }
         public string Isbn { get; set; }
@@ -37,7 +37,7 @@ namespace Test.Repository.Entities
             }
             set
             {
-                Isbn = string.Join(";", value);
+                Isbn = value != null ? string.Join(";", value) : string.Empty;
             }
         }
         public string Publisher { get; set; }
@@ -50,7 +50,7 @@ namespace Test.Repository.Entities
             }
             set
             {
-                Publisher = string.Join(";", value);
+                Publisher = value != null ? string.Join(";", value) : string.Empty;
             }
         }
         public string Language { get; set; }
@@ -63,7 +63,7 @@ namespace Test.Repository.Entities
             }
             set
             {
-                Language = string.Join(";", value);
+                Language = value != null ? string.Join(";", value) : string.Empty;
             }
         }
         public string AuthorName { get; set; }
@@ -76,7 +76,7 @@ namespace Test.Repository.Entities
             }
             set
             {
-                AuthorName = string.Join(";", value);
+                AuthorName = value != null ? string.Join(";", value) : string.Empty;
             }
         }
         public string AuthorAlternativeName { get; set; }
@@ -89,7 +89,7 @@ namespace Test.Repository.Entities
             }
             set
             {
-                AuthorAlternativeName = string.Join(";", value);
+                AuthorAlternativeName = value != null ? string.Join(";", value) : string.Empty;
             }
         }
         public int BookId { get; set; }

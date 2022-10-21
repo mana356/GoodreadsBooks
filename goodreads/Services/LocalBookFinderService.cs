@@ -25,7 +25,6 @@ namespace Test.Services
             var filePaths = Directory.GetFiles(_options.BooksDirectory, "*", SearchOption.AllDirectories);
             var newPaths = new HashSet<string>();
             var scope = _serviceProvider.CreateScope();
-            var dbContext = scope.ServiceProvider.GetRequiredService<BookContext>();
             var bookRepo = scope.ServiceProvider.GetRequiredService<IBookRepository>();
             var existingBooks = await bookRepo.GetBooks();
 

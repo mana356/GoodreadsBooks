@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using Test.Resources.Entities;
 
 namespace Test.Repository.Entities
 {
@@ -16,6 +17,7 @@ namespace Test.Repository.Entities
         public DateTime CreatedOn { get; set; }
         public DateTime AddedOn { get; set; }
         public bool IsAddedToTest { get; set; } = true;
+        public ICollection<OpenLibraryBook> OpenLibraryBooks { get; set; }
 
     }
 }

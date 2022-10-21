@@ -12,7 +12,7 @@ using Test.Repository;
 namespace Test.Migrations
 {
     [DbContext(typeof(BookContext))]
-    [Migration("20221021153104_open-library-entity-addition")]
+    [Migration("20221021154734_open-library-entity-addition")]
     partial class openlibraryentityaddition
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -177,7 +177,7 @@ namespace Test.Migrations
             modelBuilder.Entity("Test.Repository.Entities.OpenLibraryBook", b =>
                 {
                     b.HasOne("Test.Repository.Entities.Book", "Book")
-                        .WithMany()
+                        .WithMany("OpenLibraryBooks")
                         .HasForeignKey("BookId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -194,6 +194,11 @@ namespace Test.Migrations
                         .IsRequired();
 
                     b.Navigation("InputType");
+                });
+
+            modelBuilder.Entity("Test.Repository.Entities.Book", b =>
+                {
+                    b.Navigation("OpenLibraryBooks");
                 });
 
             modelBuilder.Entity("Test.Resources.Entities.InputType", b =>

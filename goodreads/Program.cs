@@ -58,7 +58,6 @@ public class Program {
             }
             if (Boolean.Parse(configuration["Workers:TestWorker"]))
             {
-                services.AddScoped<IBookRepository, BookRepository>();
                 services.AddScoped<IOpenLibraryBookRepository, OpenLibraryBookRepository>();
                 services.AddSingleton<IOpenLibraryService, OpenLibraryService>();
                 services.AddHostedService<OpenLibraryWorker>();
