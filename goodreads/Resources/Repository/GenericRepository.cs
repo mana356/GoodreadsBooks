@@ -1,5 +1,5 @@
-﻿using Test.Repository.Entities;
-using Test.Repository.Interfaces;
+﻿using GoodreadsBooks.Repository.Entities;
+using GoodreadsBooks.Repository.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -9,7 +9,7 @@ using System.Security.Principal;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Test.Repository.DAL
+namespace GoodreadsBooks.Repository.DAL
 {
     public class GenericRepository<T> : IGenericRepository<T> where T : class
     {

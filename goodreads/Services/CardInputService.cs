@@ -1,20 +1,17 @@
-﻿using Test.Repository.Entities;
-using Test.Repository;
-using Test.Models;
-using Microsoft.Extensions.Options;
+﻿using GoodreadsBooks.Models;
+using GoodreadsBooks.Resources.Entities;
+using GoodreadsBooks.Resources.Repository.Interfaces;
 using Microsoft.Extensions.DependencyInjection;
-using Test.Repository.Interfaces;
-using Test.Resources.Repository.Interfaces;
-using Test.Resources.Entities;
-using Test.Services.Interfaces;
+using Microsoft.Extensions.Options;
 
-namespace Test.Services
+namespace GoodreadsBooks.Services
 {
-    public class CardInputService: ICardInputService
+    public class CardInputService : ICardInputService
     {
         private readonly IServiceProvider _serviceProvider;
 
-        public CardInputService(IOptions<BookFinderOptions> options, IServiceProvider serviceProvider) {
+        public CardInputService(IOptions<BookFinderOptions> options, IServiceProvider serviceProvider)
+        {
             _serviceProvider = serviceProvider;
         }
 

@@ -1,19 +1,18 @@
-﻿using Test.Repository.Entities;
-using Test.Repository;
-using Test.Models;
-using Microsoft.Extensions.Options;
+﻿using GoodreadsBooks.Models;
+using GoodreadsBooks.Repository.Entities;
+using GoodreadsBooks.Repository.Interfaces;
 using Microsoft.Extensions.DependencyInjection;
-using Test.Repository.Interfaces;
-using Test.Services.Interfaces;
+using Microsoft.Extensions.Options;
 
-namespace Test.Services
+namespace GoodreadsBooks.Services
 {
-    public class LocalBookFinderService: ILocalBookFinderService
+    public class LocalBookFinderService : ILocalBookFinderService
     {
         private readonly BookFinderOptions _options;
         private readonly IServiceProvider _serviceProvider;
 
-        public LocalBookFinderService(IOptions<BookFinderOptions> options, IServiceProvider serviceProvider) {
+        public LocalBookFinderService(IOptions<BookFinderOptions> options, IServiceProvider serviceProvider)
+        {
             _options = options.Value;
             _serviceProvider = serviceProvider;
         }
@@ -56,7 +55,8 @@ namespace Test.Services
                 catch (Exception ex)
                 {
                     errorBuilder.AddError(path, ex.Message);
-                };
+                }
+                ;
 
             }
             await bookRepo.CreateRange(addedBooks);

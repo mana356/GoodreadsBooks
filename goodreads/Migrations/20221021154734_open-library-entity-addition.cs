@@ -2,7 +2,7 @@
 
 #nullable disable
 
-namespace Test.Migrations
+namespace GoodreadsBooks.Migrations
 {
     public partial class openlibraryentityaddition : Migration
     {

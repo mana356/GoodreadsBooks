@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace Test.Resources.Entities
+namespace GoodreadsBooks.Resources.Entities
 {
     [Table("InputValue")]
     public class InputValue

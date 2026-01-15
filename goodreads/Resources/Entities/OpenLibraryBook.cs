@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Xml.Linq;
 
-namespace Test.Repository.Entities
+namespace GoodreadsBooks.Repository.Entities
 {
     [Table("OpenLibraryBook")]
     public class OpenLibraryBook

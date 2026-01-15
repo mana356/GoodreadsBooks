@@ -1,8 +1,7 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Test.Services.Interfaces;
 
-namespace Test.Workers
+namespace GoodreadsBooks.Workers
 {
     public class BookWorker : BackgroundService
     {

@@ -1,5 +1,5 @@
-﻿using Test.Repository.Entities;
-using Test.Repository;
+﻿using GoodreadsBooks.Repository.Entities;
+using GoodreadsBooks.Repository;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,17 +8,17 @@ using System.Threading.Tasks;
 using System.Net.Http;
 using System.Text.Json;
 using System.Net.Http.Headers;
-using Test.Repository.Interfaces;
+using GoodreadsBooks.Repository.Interfaces;
 using static System.Formats.Asn1.AsnWriter;
 using Microsoft.Extensions.DependencyInjection;
-using Test.Models;
+using GoodreadsBooks.Models;
 using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
-using Test.Services.Interfaces;
+using GoodreadsBooks.Services.Interfaces;
 using System.Security.Policy;
 using Microsoft.EntityFrameworkCore;
 
-namespace Test.Services
+namespace GoodreadsBooks.Services
 {
     public class OpenLibraryService : IOpenLibraryService
     {

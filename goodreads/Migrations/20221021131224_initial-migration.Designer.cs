@@ -5,11 +5,11 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using Test.Repository;
+using GoodreadsBooks.Repository;
 
 #nullable disable
 
-namespace Test.Migrations
+namespace GoodreadsBooks.Migrations
 {
     [DbContext(typeof(BookContext))]
     [Migration("20221021131224_initial-migration")]
@@ -24,7 +24,7 @@ namespace Test.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
 
-            modelBuilder.Entity("Test.Repository.Entities.Book", b =>
+            modelBuilder.Entity("GoodreadsBooks.Repository.Entities.Book", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -66,7 +66,7 @@ namespace Test.Migrations
                     b.ToTable("Book");
                 });
 
-            modelBuilder.Entity("Test.Resources.Entities.InputType", b =>
+            modelBuilder.Entity("GoodreadsBooks.Resources.Entities.InputType", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -91,7 +91,7 @@ namespace Test.Migrations
                     b.ToTable("InputType");
                 });
 
-            modelBuilder.Entity("Test.Resources.Entities.InputValue", b =>
+            modelBuilder.Entity("GoodreadsBooks.Resources.Entities.InputValue", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -116,9 +116,9 @@ namespace Test.Migrations
                     b.ToTable("InputValue");
                 });
 
-            modelBuilder.Entity("Test.Resources.Entities.InputValue", b =>
+            modelBuilder.Entity("GoodreadsBooks.Resources.Entities.InputValue", b =>
                 {
-                    b.HasOne("Test.Resources.Entities.InputType", "InputType")
+                    b.HasOne("GoodreadsBooks.Resources.Entities.InputType", "InputType")
                         .WithMany("InputValues")
                         .HasForeignKey("InputTypeId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -127,7 +127,7 @@ namespace Test.Migrations
                     b.Navigation("InputType");
                 });
 
-            modelBuilder.Entity("Test.Resources.Entities.InputType", b =>
+            modelBuilder.Entity("GoodreadsBooks.Resources.Entities.InputType", b =>
                 {
                     b.Navigation("InputValues");
                 });

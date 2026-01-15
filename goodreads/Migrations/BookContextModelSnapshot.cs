@@ -4,11 +4,11 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using Test.Repository;
+using GoodreadsBooks.Repository;
 
 #nullable disable
 
-namespace Test.Migrations
+namespace GoodreadsBooks.Migrations
 {
     [DbContext(typeof(BookContext))]
     partial class BookContextModelSnapshot : ModelSnapshot
@@ -22,7 +22,7 @@ namespace Test.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
 
-            modelBuilder.Entity("Test.Repository.Entities.Book", b =>
+            modelBuilder.Entity("GoodreadsBooks.Repository.Entities.Book", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -64,7 +64,7 @@ namespace Test.Migrations
                     b.ToTable("Book");
                 });
 
-            modelBuilder.Entity("Test.Repository.Entities.OpenLibraryBook", b =>
+            modelBuilder.Entity("GoodreadsBooks.Repository.Entities.OpenLibraryBook", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -122,7 +122,7 @@ namespace Test.Migrations
                     b.ToTable("OpenLibraryBook");
                 });
 
-            modelBuilder.Entity("Test.Resources.Entities.InputType", b =>
+            modelBuilder.Entity("GoodreadsBooks.Resources.Entities.InputType", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -147,7 +147,7 @@ namespace Test.Migrations
                     b.ToTable("InputType");
                 });
 
-            modelBuilder.Entity("Test.Resources.Entities.InputValue", b =>
+            modelBuilder.Entity("GoodreadsBooks.Resources.Entities.InputValue", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -172,9 +172,9 @@ namespace Test.Migrations
                     b.ToTable("InputValue");
                 });
 
-            modelBuilder.Entity("Test.Repository.Entities.OpenLibraryBook", b =>
+            modelBuilder.Entity("GoodreadsBooks.Repository.Entities.OpenLibraryBook", b =>
                 {
-                    b.HasOne("Test.Repository.Entities.Book", "Book")
+                    b.HasOne("GoodreadsBooks.Repository.Entities.Book", "Book")
                         .WithMany("OpenLibraryBooks")
                         .HasForeignKey("BookId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -183,9 +183,9 @@ namespace Test.Migrations
                     b.Navigation("Book");
                 });
 
-            modelBuilder.Entity("Test.Resources.Entities.InputValue", b =>
+            modelBuilder.Entity("GoodreadsBooks.Resources.Entities.InputValue", b =>
                 {
-                    b.HasOne("Test.Resources.Entities.InputType", "InputType")
+                    b.HasOne("GoodreadsBooks.Resources.Entities.InputType", "InputType")
                         .WithMany("InputValues")
                         .HasForeignKey("InputTypeId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -194,12 +194,12 @@ namespace Test.Migrations
                     b.Navigation("InputType");
                 });
 
-            modelBuilder.Entity("Test.Repository.Entities.Book", b =>
+            modelBuilder.Entity("GoodreadsBooks.Repository.Entities.Book", b =>
                 {
                     b.Navigation("OpenLibraryBooks");
                 });
 
-            modelBuilder.Entity("Test.Resources.Entities.InputType", b =>
+            modelBuilder.Entity("GoodreadsBooks.Resources.Entities.InputType", b =>
                 {
                     b.Navigation("InputValues");
                 });

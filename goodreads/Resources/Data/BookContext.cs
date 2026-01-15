@@ -1,5 +1,5 @@
-﻿using Test.Repository.Entities;
-using Test.Resources.Entities;
+﻿using GoodreadsBooks.Repository.Entities;
+using GoodreadsBooks.Resources.Entities;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -9,7 +9,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Test.Repository
+namespace GoodreadsBooks.Repository
 {
     public class BookContext : DbContext
     {

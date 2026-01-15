@@ -1,8 +1,8 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using Test.Resources.Entities;
+using GoodreadsBooks.Resources.Entities;
 
-namespace Test.Repository.Entities
+namespace GoodreadsBooks.Repository.Entities
 {
     [Table("Book")]
     public class Book

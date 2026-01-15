@@ -1,8 +1,8 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Test.Services.Interfaces;
+using GoodreadsBooks.Services.Interfaces;
 
-namespace Test.Workers
+namespace GoodreadsBooks.Workers
 {
     public class CardInputWorker : BackgroundService
     {

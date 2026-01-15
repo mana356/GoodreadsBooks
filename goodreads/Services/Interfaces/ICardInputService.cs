@@ -1,13 +1,6 @@
-﻿using Test.Models;
-using Test.Repository.Entities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Test.Resources.Entities;
+﻿using GoodreadsBooks.Resources.Entities;
 
-namespace Test.Services.Interfaces
+namespace GoodreadsBooks.Services
 {
     public interface ICardInputService
     {

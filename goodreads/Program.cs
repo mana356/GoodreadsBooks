@@ -1,23 +1,23 @@
-﻿using Test.Models;
-using Test.Repository;
-using Test.Repository.DAL;
-using Test.Repository.Interfaces;
-using Test.Resources.Repository;
-using Test.Resources.Repository.Interfaces;
-using Test.Services;
+﻿using GoodreadsBooks.Models;
+using GoodreadsBooks.Repository;
+using GoodreadsBooks.Repository.DAL;
+using GoodreadsBooks.Repository.Interfaces;
+using GoodreadsBooks.Resources.Repository;
+using GoodreadsBooks.Resources.Repository.Interfaces;
+using GoodreadsBooks.Services;
+using GoodreadsBooks.Workers;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
-using Test.Services.Interfaces;
-using Test.Workers;
 
-public class Program { 
+public class Program
+{
     public static void Main(string[] args)
     {
         CreateHostBuilder(args).Build().Run();
-        
+
     }
 
     public static IHostBuilder CreateHostBuilder(string[] args) =>
@@ -30,18 +30,20 @@ public class Program {
             .AddEnvironmentVariables();
 
         })
-        .ConfigureLogging((context, logging) => {
+        .ConfigureLogging((context, logging) =>
+        {
             var env = context.HostingEnvironment;
             var config = context.Configuration.GetSection("Logging");
-            
+
             logging.AddConfiguration(config);
             logging.AddConsole();
-            
+
             logging.AddFilter("Microsoft.EntityFrameworkCore.Database.Command", LogLevel.Warning);
             logging.AddFilter("Microsoft.EntityFrameworkCore.Infrastructure", LogLevel.Warning);
             logging.AddFilter("Microsoft.Hosting.Lifetime", LogLevel.Warning);
         })
-        .ConfigureServices((hostContext, services) => {
+        .ConfigureServices((hostContext, services) =>
+        {
 
             IConfiguration configuration = hostContext.Configuration;
             services.AddDbContext<BookContext>(options =>

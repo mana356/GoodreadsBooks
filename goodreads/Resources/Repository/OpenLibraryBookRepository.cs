@@ -1,8 +1,8 @@
-﻿using Test.Repository.Entities;
-using Test.Repository.Interfaces;
+﻿using GoodreadsBooks.Repository.Entities;
+using GoodreadsBooks.Repository.Interfaces;
 using Microsoft.EntityFrameworkCore;
 
-namespace Test.Repository.DAL
+namespace GoodreadsBooks.Repository.DAL
 {
     public class OpenLibraryBookRepository : GenericRepository<OpenLibraryBook>, IOpenLibraryBookRepository
     {
