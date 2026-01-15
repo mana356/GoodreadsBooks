@@ -2,7 +2,7 @@
 
 A .NET console/worker application that processes locally stored books (ebooks files) data and enriches it using external book metadata sources such as **Open Library**.
 
-This project is designed to read book inputs (e.g. exported Goodreads data), resolve book details locally or via APIs, and persist structured book information using Entity Framework Core.
+This project is designed to read book inputs, resolve book details locally or via APIs, and persist structured book information using Entity Framework Core. The results from localDB can be used to populate Goodreads bulk upload CSV templates for a quick and easy update of your "Read" book list.
 
 ---
 
