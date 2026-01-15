@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using GoodreadsBooks.Repository;
 
@@ -11,9 +12,10 @@ using GoodreadsBooks.Repository;
 namespace GoodreadsBooks.Migrations
 {
     [DbContext(typeof(BookContext))]
-    partial class BookContextModelSnapshot : ModelSnapshot
+    [Migration("20221021131224_initial-migration")]
+    partial class initialmigration
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -62,64 +64,6 @@ namespace GoodreadsBooks.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Book");
-                });
-
-            modelBuilder.Entity("GoodreadsBooks.Repository.Entities.OpenLibraryBook", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
-
-                    b.Property<string>("AuthorAlternativeName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("AuthorName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("BookId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Isbn")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Key")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Language")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("PublishDate")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Publisher")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Title")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("TitleSuggest")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Type")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("BookId");
-
-                    b.ToTable("OpenLibraryBook");
                 });
 
             modelBuilder.Entity("GoodreadsBooks.Resources.Entities.InputType", b =>
@@ -172,17 +116,6 @@ namespace GoodreadsBooks.Migrations
                     b.ToTable("InputValue");
                 });
 
-            modelBuilder.Entity("GoodreadsBooks.Repository.Entities.OpenLibraryBook", b =>
-                {
-                    b.HasOne("GoodreadsBooks.Repository.Entities.Book", "Book")
-                        .WithMany("OpenLibraryBooks")
-                        .HasForeignKey("BookId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Book");
-                });
-
             modelBuilder.Entity("GoodreadsBooks.Resources.Entities.InputValue", b =>
                 {
                     b.HasOne("GoodreadsBooks.Resources.Entities.InputType", "InputType")
@@ -192,11 +125,6 @@ namespace GoodreadsBooks.Migrations
                         .IsRequired();
 
                     b.Navigation("InputType");
-                });
-
-            modelBuilder.Entity("GoodreadsBooks.Repository.Entities.Book", b =>
-                {
-                    b.Navigation("OpenLibraryBooks");
                 });
 
             modelBuilder.Entity("GoodreadsBooks.Resources.Entities.InputType", b =>

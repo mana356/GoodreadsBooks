@@ -7,8 +7,8 @@ using System.Threading.Tasks;
 
 namespace GoodreadsBooks.Repository.Interfaces
 {
-    public interface IBookRepository : IGenericRepository<Book>
+    public interface IOpenLibraryBookRepository : IGenericRepository<OpenLibraryBook>
     {
-        Task<List<Book>> GetBooks();
+        Task<List<OpenLibraryBook>> GetOpenLibraryBooks();
     }
 }

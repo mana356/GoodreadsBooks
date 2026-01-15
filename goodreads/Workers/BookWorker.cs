@@ -1,29 +1,27 @@
-﻿using goodreads.Services;
-using Microsoft.Extensions.DependencyInjection;
+﻿using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 
-namespace goodreads
+namespace GoodreadsBooks.Workers
 {
     public class BookWorker : BackgroundService
     {
-        IHostApplicationLifetime _lifetime;
-        IServiceProvider _serviceProvider;
+        readonly IHostApplicationLifetime _lifetime;
+        readonly IServiceProvider _serviceProvider;
 
         public BookWorker(IHostApplicationLifetime hostApplicationLifetime, IServiceProvider serviceProvider)
-        { 
+        {
             _lifetime = hostApplicationLifetime;
             _serviceProvider = serviceProvider;
         }
         protected override async Task ExecuteAsync(CancellationToken stoppingToken)
         {
-            Console.WriteLine("********************Book Finder Worker Started**********************");
             try
             {
+                Console.WriteLine("Book Finder Worker Started******************************************************************");
+
                 using var scope = _serviceProvider.CreateScope();
                 var bookFinderService = scope.ServiceProvider.GetRequiredService<ILocalBookFinderService>();
                 var results = await bookFinderService.FindAndAddBooks();
-
-                Console.WriteLine("********************Book Finder Worker Finished**********************");
 
                 Console.WriteLine($"Books Added Count: {results.addedBooks.Count}");
 
@@ -34,6 +32,7 @@ namespace goodreads
                         Console.WriteLine("Error in service: " + error.Message);
                     }
                 }
+                Console.WriteLine("Book Finder Worker Finished******************************************************************");
 
             }
             catch (Exception ex)

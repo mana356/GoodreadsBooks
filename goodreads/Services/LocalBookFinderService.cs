@@ -1,18 +1,18 @@
-﻿using goodreads.Repository.Entities;
-using goodreads.Repository;
-using goodreads.Models;
-using Microsoft.Extensions.Options;
+﻿using GoodreadsBooks.Models;
+using GoodreadsBooks.Repository.Entities;
+using GoodreadsBooks.Repository.Interfaces;
 using Microsoft.Extensions.DependencyInjection;
-using goodreads.Repository.Interfaces;
+using Microsoft.Extensions.Options;
 
-namespace goodreads.Services
+namespace GoodreadsBooks.Services
 {
-    public class LocalBookFinderService: ILocalBookFinderService
+    public class LocalBookFinderService : ILocalBookFinderService
     {
         private readonly BookFinderOptions _options;
         private readonly IServiceProvider _serviceProvider;
 
-        public LocalBookFinderService(IOptions<BookFinderOptions> options, IServiceProvider serviceProvider) {
+        public LocalBookFinderService(IOptions<BookFinderOptions> options, IServiceProvider serviceProvider)
+        {
             _options = options.Value;
             _serviceProvider = serviceProvider;
         }
@@ -24,7 +24,6 @@ namespace goodreads.Services
             var filePaths = Directory.GetFiles(_options.BooksDirectory, "*", SearchOption.AllDirectories);
             var newPaths = new HashSet<string>();
             var scope = _serviceProvider.CreateScope();
-            var dbContext = scope.ServiceProvider.GetRequiredService<BookContext>();
             var bookRepo = scope.ServiceProvider.GetRequiredService<IBookRepository>();
             var existingBooks = await bookRepo.GetBooks();
 
@@ -50,16 +49,17 @@ namespace goodreads.Services
                         Extension = ext,
                         CreatedOn = DateTime.Now
                     };
-                    
+
                     addedBooks.Add(book);
                 }
                 catch (Exception ex)
                 {
                     errorBuilder.AddError(path, ex.Message);
                 }
+                ;
+
             }
             await bookRepo.CreateRange(addedBooks);
-            Console.WriteLine();
             return (errorBuilder, addedBooks);
         }
     }

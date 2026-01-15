@@ -1,5 +1,5 @@
 ﻿
-namespace goodreads.Utility
+namespace GoodreadsBooks.Utility
 {
     public static class ProgressBarUtility
     {    

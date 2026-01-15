@@ -1,12 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using GoodreadsBooks.Resources.Entities;
 
-namespace goodreads.Repository.Entities
+namespace GoodreadsBooks.Repository.Entities
 {
     [Table("Book")]
     public class Book
@@ -20,7 +16,8 @@ namespace goodreads.Repository.Entities
         public string Extension { get; set; }
         public DateTime CreatedOn { get; set; }
         public DateTime AddedOn { get; set; }
-        public bool IsAddedToGoodreads { get; set; } = true;
+        public bool IsAddedToTest { get; set; } = true;
+        public ICollection<OpenLibraryBook> OpenLibraryBooks { get; set; }
 
     }
 }
