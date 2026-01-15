@@ -1,6 +1,6 @@
-# GoodreadsBooks 📚
+# GoodreadsBooksResolver 📚
 
-A .NET console/worker application that processes Goodreads book data and enriches it using external book metadata sources such as **Open Library**.
+A .NET console/worker application that processes locally stored books (ebooks files) data and enriches it using external book metadata sources such as **Open Library**.
 
 This project is designed to read book inputs (e.g. exported Goodreads data), resolve book details locally or via APIs, and persist structured book information using Entity Framework Core.
 
@@ -8,7 +8,7 @@ This project is designed to read book inputs (e.g. exported Goodreads data), res
 
 ## ✨ Features
 
-- 📥 Import and process Goodreads book data
+- 📥 Import and process Ebooks file data
 - 🔎 Resolve book information via **Open Library**
 - 🧠 Local book lookup to reduce duplicate API calls
 - 🗄️ Persistence using **Entity Framework Core**
